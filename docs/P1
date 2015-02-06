@@ -1,0 +1,41 @@
+Sinatra RESTful CRUD
+  Implement CRUD in a MVC app (using Sinatra)
+  Use Active Record to perform CRUD operations on a database
+  Use RESTful routes
+Active Record
+  User has many skills and a skill can be assigned to many users
+  User has profiency rating for each of their skills
+  Multiple skills can not be saved with the same name
+Authentication and Authorization
+  Implement user login and authentication (and authorization)
+HTML and CSS
+  Use Semantic HTML <link> to structure a website
+  Use CSS selectors to efficiently select any DOM element #p2
+  Explain the tradeoffs of different CSS selectors and CSS specificity and design your CSS to optimize these
+  Change basic CSS appearance: colors, widths, padding, margin
+  Position elements using CSS positioning, display and float
+Validations and Errors
+  Use Active Record Validations
+  Use the errors object to display Active Record validation errors in the view
+README
+
+
+--HIGH LEVEL CONCEPT
+Website where new boots can login, rate their knowledge/skill level on various technical/social topics, and then login again at the end of DBC for comparison. Advice for new/future/prospective boots, feedback for DBC, and job placement may also be incorporated. Periodic email reminders for updates
+
+--P1
+Website where boots can "log in", identify/select skills, rate them every phase, provide advice. Public facing website to view progress over time and advice to other/prospective boots/
+
+--P2
+Add on email reminders, hopefully tap into DBC API. Overhaul with Javascript?
+
+--P3
+Polish, add on additional features?
+
+
+
+--MVP
+Login
+Select/edit skills per phase
+Blocked from logging in/selecting/editing other's accounts/info
+Throw error messages on the view for validation
