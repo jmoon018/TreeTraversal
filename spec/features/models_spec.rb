@@ -103,6 +103,88 @@ describe "can generate new users/trees/nodes w/ proper relations" do
     it "has a 'created_at' property" do
       expect(t_tree.created_at.utc.to_i).to eq(Time.now.to_i)
     end
+
+    describe "tree algorithms (depth first search, minimax, etc)" do
+      let(:dfs_tree) {
+        t = Tree.create()
+
+        # the values are carefully chosen so that a depth first search
+        # will returns nodes with increasing value: 0, 1, 2, etc
+        root = t.create_node(value: 0)
+        n1 = root.create_node(value: 1)
+        n2 = root.create_node(value: 3)
+        n3 = root.create_node(value: 6)
+
+        n1.create_node(value: 2)
+        n2.create_node(value: 4)
+        n2.create_node(value: 5)
+        n3.create_node(value: 7)
+        return t
+      }
+
+      let (:minimax_tree_1) {
+        t = Tree.create()
+
+        # depth 0
+        root = t.create_node()
+
+        # depth 1
+        n1 = root.create_node()
+        n2 = root.create_node()
+        n3 = root.create_node()
+
+        # depth 2
+        n4 = n1.create_node()
+        n5 = n1.create_node()
+
+        n6 = n2.create_node()
+
+        n7 = n3.create_node()
+        n8 = n3.create_node()
+        n9 = n3.create_node()
+
+        # depth 3
+        n10 = n4.create_node(value: 6)
+        n11 = n4.create_node(value: -3)
+        n12 = n4.create_node(value: 10)
+
+        n13 = n5.create_node(value: 5)
+        n14 = n5.create_node(value: 0)
+        n15 = n5.create_node(value: 6)
+
+        n16 = n6.create_node(value: 5)
+
+        n17 = n7.create_node(value: -4)
+
+        n18 = n8.create_node(value: 8)
+        n19 = n8.create_node(value: -9)
+
+        n20 = n9.create_node(value: -6)
+        n21 = n9.create_node(value: 0)
+        n22 = n9.create_node(value: 5)
+
+        return t
+      }
+
+      it "iterates through all the nodes in the tree" do
+        expect(dfs_tree.depth_first_search().count).to be(8)
+      end
+
+      it "iterates through all the nodes in the proper order" do
+        # when i made the tree and nodes, they were in a specific order
+        ordered = true
+        arr = dfs_tree.depth_first_search()
+        arr.each_with_index {|node, index| oredered = false if node.value != index}
+        expect(ordered).to be(true)
+      end
+
+      it "minimax picks the right value" do
+        #dfs = minimax_tree_1.depth_first_search()
+        #dfs.each {|node| puts node.value}
+        #expect(dfs.count).to be (23)
+       expect(minimax_tree_1.minimax({depth: 3, node: minimax_tree_1.node, maximize: true})).to be(6)
+      end
+    end
   end
 
   describe "node methods: " do
@@ -163,7 +245,7 @@ describe "can generate new users/trees/nodes w/ proper relations" do
       expect(Node.count).to be(10)
     end
 
-  it "has a 'created_at' property" do
+    it "has a 'created_at' property" do
       expect(node.created_at.utc.to_i).to eq(Time.now.to_i)
     end
 
