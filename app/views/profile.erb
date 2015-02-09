@@ -1,0 +1,8 @@
+<h1 class="title">Your Trees</h1>
+
+<% @trees.each do |tree| %>
+  <div class="tree_listing">
+    <h3 class="tree_listing_title"><%= tree.name %></h3>
+    <p class="tree_listing_desc"><%= tree.description %></p>
+  </div>
+<% end %>

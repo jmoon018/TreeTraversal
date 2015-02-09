@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- 
+  <!--
     normalize.css removes cross-browser differences in defaults, e.g.,
     differences in how form elements appear between Firefox and IE
     See: http://necolas.github.com/normalize.css/
@@ -12,12 +12,77 @@
   -->
   <link rel="stylesheet" href="/css/application.css">
 
+  <link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/js/application.js"></script>
 
   <title></title>
 </head>
 <body>
-  <%= yield %>
+
+  <div id="top_bar">
+    <% if @logged_in == false %>
+      <form class="top_bar_form" action = "/login" method="post">
+        <p class="top_bar_text"> Username: </p>
+        <input class="top_bar_input" name="username" type="text"/>
+        <p class="top_bar_text"> Password: </p>
+        <input class="top_bar_input" name="password" type="password"/>
+
+        <input type="hidden" name="_method" value ="put">
+        <input class="top_bar_submit" type="submit" value="Go!">
+
+        <% if @error && @error != nil %>
+        <p class="top_bar_error"><%= @error %></p>
+        <% end %>
+      </form>
+    <% elsif @logged_in == true %>
+      <form class="top_bar_form" action="/logout" method="get">
+        <p class="top_bar_text">Hello, <%= @username %> !</p>
+        <input class="top_bar_logout" type="submit" value="Logout">
+      </form>
+    <% end %>
+  </div>
+
+
+  <div id="center">
+    <h1 class="title">Tree Traversal</h1>
+
+    <div class="menu_bar">
+      <a href="/">
+        <div class="menu_bar_image">
+          <p class="menu_bar_text">Home</p>
+        </div>
+      </a>
+
+      <a href="/profile">
+        <div class="menu_bar_image">
+          <p class="menu_bar_text">Profile</p>
+        </div>
+      </a>
+
+      <a href="/trees">
+        <div class="menu_bar_image">
+          <p class="menu_bar_text">Trees!</p>
+        </div>
+      </a>
+
+      <a href="/demo">
+        <div class="menu_bar_image">
+          <p class="menu_bar_text">Demo</p>
+        </div>
+      </a>
+
+      <a href="/about">
+        <div class="menu_bar_image">
+          <p class="menu_bar_text">About</p>
+        </div>
+      </a>
+
+    </div>
+    <%=yield%>
+
+
+  </div>
 </body>
 </html>
