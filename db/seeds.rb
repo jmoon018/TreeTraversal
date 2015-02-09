@@ -5,7 +5,7 @@ require 'faker'
 DEFAULT_USERS = 10
 DEFAULT_TREES = (1..3).to_a
 DEFAULT_TREE_DEPTH = (2..4).to_a
-DEFAULT_BRANCHING_FACTOR = (2..6).to_a
+DEFAULT_BRANCHING_FACTOR = (2..4).to_a
 DEFAULT_VALUES = (-100..100).to_a
 
 num = ARGV[1].to_i
@@ -27,7 +27,7 @@ def seed_tree(args = {})
     # make a random number of trees
     trees_count = trees_count || DEFAULT_TREES.sample
     for tree_index in 1..trees_count
-      tree_name = first_name + "'s Tree"
+      tree_name = first_name + "'s Tree #{tree_index}"
       desc = "This tree belongs to #{first_name} and may have a few nodes or... a lot, really. It just depends on chance."
 
       # create the tree
@@ -59,5 +59,5 @@ def seed_tree(args = {})
   end
 end
 
-#seed_tree({users_count: 1, trees_count: 1, tree_depth: 6, branching_factor: 4, first_name: "Jamal", password: "bigtree"})
-seed_tree()
+seed_tree({users_count: 1, trees_count: 2, tree_depth: 3, branching_factor: 2, first_name: "Jamal", password: "jamalisthebest"})
+seed_tree({password: "pw"})

@@ -1,7 +1,14 @@
+get '/login' do
+  if session_logged_in?
+    redirect to('/profile')
+  end
+  erb :login
+end
+
 put '/login' do
   # login if possible
-  username = params[:username]
-  password = params[:password]
+  username = params[:username] || params[:username2]
+  password = params[:password] || params[:password2]
 
   puts "REQUEST TO LOGIN: #{username}"
   if session_authenticate(username, password)
@@ -13,7 +20,7 @@ put '/login' do
     session[:error] = "Unsuccessful login."
   end
 
-  redirect to('/')
+  redirect back
 end
 
 get '/logout' do

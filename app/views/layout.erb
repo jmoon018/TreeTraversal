@@ -32,8 +32,8 @@
         <input type="hidden" name="_method" value ="put">
         <input class="top_bar_submit" type="submit" value="Go!">
 
-        <% if @error && @error != nil %>
-        <p class="top_bar_error"><%= @error %></p>
+        <% if session[:error] && session[:error] != nil %>
+        <p class="top_bar_error"><%= session[:error] %></p>
         <% end %>
       </form>
     <% elsif session_logged_in? == true %>
@@ -46,7 +46,7 @@
 
 
   <div id="center">
-    <h1 class="title">Tree Traversal</h1>
+    <h1 class="title">Thorough Tree Training</h1>
 
     <div class="menu_bar">
       <a href="/">
@@ -61,11 +61,11 @@
         </div>
       </a>
 
-      <a href="/trees">
+     <!--  <a href="/trees">
         <div class="menu_bar_image">
           <p class="menu_bar_text">Trees!</p>
         </div>
-      </a>
+      </a> -->
 
       <a href="/demo">
         <div class="menu_bar_image">
@@ -73,9 +73,9 @@
         </div>
       </a>
 
-      <a href="/about">
+      <a href="/learn">
         <div class="menu_bar_image">
-          <p class="menu_bar_text">About</p>
+          <p class="menu_bar_text">Learn</p>
         </div>
       </a>
 
