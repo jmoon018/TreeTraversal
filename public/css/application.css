@@ -114,20 +114,44 @@ body {
 
 .tree_listing {
   width: 100%;
-  height: 300px;
+  max-width: 600px;
+  margin: auto;
+  padding: 10px;
   border-bottom: 1px solid black;
 }
 
 .tree_listing_title {
   font-size: 2em;
+  color: rgb(50, 100, 250);
+  text-decoration: none;
 }
 
 .tree_listing_desc {
-  font-size: 1em;
+  font-size: 1.1em;
   text-indent: 20px;
 }
 
 
+/* TREE STUFF */
+
+.nodes_depth_div {
+  display: table;
+  padding: 5px;
+  margin-bottom: 15px;
+  width: 100%;
+  border-bottom: 1px solid black;
+}
+
+.node_depth_title {
+  font-size: 1.8em;
+  text-align: left;
+}
+
+.node_div {
+  float: left;
+  margin-right: 10px;
+  display: table;
+}
 
 
 

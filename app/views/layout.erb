@@ -22,7 +22,7 @@
 <body>
 
   <div id="top_bar">
-    <% if @logged_in == false %>
+    <% if session_logged_in? == false %>
       <form class="top_bar_form" action = "/login" method="post">
         <p class="top_bar_text"> Username: </p>
         <input class="top_bar_input" name="username" type="text"/>
@@ -36,9 +36,9 @@
         <p class="top_bar_error"><%= @error %></p>
         <% end %>
       </form>
-    <% elsif @logged_in == true %>
+    <% elsif session_logged_in? == true %>
       <form class="top_bar_form" action="/logout" method="get">
-        <p class="top_bar_text">Hello, <%= @username %> !</p>
+        <p class="top_bar_text">Hello, <%= session_current_user.name %> !</p>
         <input class="top_bar_logout" type="submit" value="Logout">
       </form>
     <% end %>
