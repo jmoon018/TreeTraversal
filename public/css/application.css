@@ -149,8 +149,11 @@ body {
 
 .node_div {
   float: left;
-  margin-right: 10px;
   display: table;
+  border: 1px solid black;
+  min-width:100px;
+  padding: 5px;
+  margin: 5px;
 }
 
 
