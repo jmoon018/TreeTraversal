@@ -1,0 +1,173 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url('/images/background.jpg');
+  background-color: #cccccc;
+  background-position-x: 200px;
+  font-family: 'Indie Flower', cursive;
+}
+
+
+/* HEADER RELATED STUFF */
+#top_bar {
+  width: 100%;
+  background-color: black;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 30px;
+
+  font-family: 'Indie Flower';
+}
+
+.top_bar_form {
+  height: 30px;
+}
+.top_bar_text {
+  color: white;
+  font-size: 1em;
+  display: inline;
+}
+
+.top_bar_input {
+  border: 0;
+  margin-right: 10px;
+  width: 125px;
+
+  height: 20px;
+  margin-top:5px;
+}
+
+.top_bar_submit {
+  height: 20px;
+  width: 50px;
+}
+
+.top_bar_error {
+  color: red;
+  font-size: 0.8em;
+  display: inline;
+}
+
+.top_bar_text_welcome {
+  font-size: 1.3em;
+  font-family: 'Indie Flower';
+}
+.top_bar_logout {
+  float: right;
+  margin-right: 20px;
+  height: 22px;
+  margin-top: 4px;
+}
+
+/* MENU BAR */
+.menu_bar {
+  margin: auto;
+  width: 625px;
+  height: 110px;
+  border-bottom: 1px solid black
+}
+
+.menu_bar a {
+  text-decoration: none;
+  color: black;
+  ;
+}
+
+.menu_bar_image {
+  width: 110px;
+  height: 100px;
+  background-image: url('/images/button_1.png');
+  float: left;
+  background-size: 110px 100px;
+  margin-right:15px;
+}
+
+.menu_bar_text {
+  text-align: center;
+  vertical-align: middle;
+  margin: 0;
+  padding: 33px 0 0 0;
+  font-size: 1.6em;
+}
+
+
+#center {
+  width: 80%;
+  margin: 0 auto;
+  min-width: 800px;
+  max-width: 1400px;
+  min-height: 800px;
+
+  padding: 25px;
+  background-color: white;
+  color: black;
+
+  box-shadow: 0px 30px 40px rgba(0,0,0,.2)
+}
+
+
+/* PROFILE STUFF */
+
+.tree_listing {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+
+.tree_listing_title {
+  font-size: 2em;
+  color: rgb(50, 100, 250);
+  text-decoration: none;
+}
+
+.tree_listing_desc {
+  font-size: 1.1em;
+  text-indent: 20px;
+}
+
+
+/* TREE STUFF */
+
+.nodes_depth_div {
+  display: table;
+  padding: 5px;
+  margin-bottom: 15px;
+  width: 100%;
+  border-bottom: 1px solid black;
+}
+
+.node_depth_title {
+  font-size: 1.8em;
+  text-align: left;
+}
+
+.node_div {
+  float: left;
+  display: table;
+  border: 1px solid black;
+  min-width:100px;
+  padding: 5px;
+  margin: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+.title {
+  font-size: 4em;
+  text-align: center;
+}
+
+

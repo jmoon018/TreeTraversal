@@ -6,6 +6,11 @@ class Tree < ActiveRecord::Base
   belongs_to :user
   has_one :node
 
+  # node count
+  def node_count
+    depth_first_search.count
+  end
+
   # default is root
   def depth_first_search(node = self.node)
     # base case
@@ -18,6 +23,19 @@ class Tree < ActiveRecord::Base
       node.nodes.each {|n| theReturn = theReturn + depth_first_search(n)}
       # return ([node] + node.nodes.each {|n| depth_first_search(n)})
       return theReturn
+    end
+  end
+
+  # this is a breadth first search
+  def nodes_by_level (depth, node = self.node)
+    if depth == 0
+      return [node]
+    elsif !node.nodes.empty?
+      nodes = []
+      node.nodes.each {|n| nodes = nodes + nodes_by_level(depth-1, n)}
+      return nodes
+    else
+      return []
     end
   end
 
