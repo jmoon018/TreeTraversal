@@ -1,0 +1,20 @@
+<h2 class="sub_title"><%= @msg %></h2>
+
+<div class="node_change_div">
+  <form action="<%=@action%>" method="post">
+
+    <div class="node_change_field">
+      <p class="node_change_text">Node Value:</p>
+      <input name="node_value" value="<%=@node_value%>" type="text"/>
+    </div>
+
+    <div class="node_change_field">
+      <p class="node_change_text">Node Parent ID:</p>
+      <input name="node_parent_id" value="<%=@node_parent_id%>" type="text">
+    </div>
+
+    <input type="hidden" name="_method" value ="put">
+    <input class="node_submit_button" type="submit" value="Submit">
+  </form>
+</div>
+

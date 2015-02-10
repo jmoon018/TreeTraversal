@@ -25,3 +25,4 @@ get '/trees' do
   @trees = user.trees
   erb :trees
 end
+
