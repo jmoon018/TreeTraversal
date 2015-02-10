@@ -1,0 +1,25 @@
+<h2 class="sub_title">Edit Your '<%=@tree_name%>' Tree!</h2>
+
+<div class="tree_edit_div">
+  <div class="tree_edit_field">
+    <p class="tree_edit_text">Tree Name:</p>
+    <input style="text" value="<%=@tree_name%>">
+  </div>
+
+  <div class="tree_edit_field">
+    <p class="tree_edit_text">Tree's Owner ID:</p>
+    <input style="text" value="<%=@user_id%>">
+  </div>
+
+  <div class="tree_edit_field">
+    <p class="tree_edit_text">Root Node ID:</p>
+    <input style="text" value="<%=@root_id%>">
+  </div>
+
+  <div class="tree_edit_field">
+    <p class="tree_edit_text">Description:</p>
+    <textarea class="tree_edit_textarea" rows="3" col="40"><%= @description %></textarea>
+  </div>
+
+
+</div>

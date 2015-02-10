@@ -199,6 +199,39 @@ body {
   text-indent: 25px;
 }
 
+/* CREATE / EDIT STUFF */
+
+.tree_edit_div {
+  margin: auto;
+  width: 400px;
+  padding: 15px;
+  display: table;
+}
+
+.tree_edit_field {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.tree_edit_field input { width: 100%; float: right;}
+
+.tree_edit_text {
+  font-size: 1.3em;
+  display: inline;
+}
+
+.tree_edit_submit {
+  width: 100px;
+  height: 50px;
+  float: right;
+}
+
+.tree_edit_textarea {
+  width: 100%;
+  height: 200px;
+}
+
+
 
 /* DEMO STUFF */
 .squirrel_pic {

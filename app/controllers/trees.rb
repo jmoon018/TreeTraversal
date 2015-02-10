@@ -26,3 +26,16 @@ get '/trees' do
   erb :trees
 end
 
+get '/trees/:name/edit' do
+  @tree_name = params[:name]
+  tree = Tree.find_by(name: @tree_name)
+  if tree == nil
+    puts "Trying to find tree #{name} but not found"
+    return
+  end
+  @user_id = tree.user.id
+  @description = tree.description
+  @root_id =  tree.node.id
+
+  erb :trees_edit
+end
