@@ -185,6 +185,39 @@ describe "can generate new users/trees/nodes w/ proper relations" do
        expect(minimax_tree_1.minimax({depth: 3, node: minimax_tree_1.node, maximize: true})).to be(6)
       end
     end
+	
+	describe "can make a BST structure w/ proper methods" do
+		let(:bst) {
+			t = Tree.create()
+			#depth 0
+			node0 = t.create_node(value: 10)
+
+			#depth 1
+			node1 = node0.create_node(value: 7)
+			node2 = node0.create_node(value: 20)
+
+			#depth 2
+			node3 = node1.create_node(value: 6)
+			node4 = node1.create_node(value: 9)
+
+			node5 = node2.create_node(value: 14)
+			node6 = node2.create_node(value: 23)
+
+			#depth 3
+			node4.create_node(value: 8)
+
+			return t
+		}
+		
+		it "can print stuff" do
+			expect(bst.node.print_in_order).to eq([6, 7, 8, 9, 10, 14, 20, 23])
+		end
+
+		it "can insert something to the tree" do 
+			bst.node.insert(5)
+			expect(bst.node.print_in_order).to eq([5, 6, 7, 8, 9, 10, 14, 20, 23])
+		end
+	end	
   end
 
   describe "node methods: " do

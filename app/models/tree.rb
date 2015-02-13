@@ -70,4 +70,18 @@ class Tree < ActiveRecord::Base
       return smallest_value
     end
   end
+
+
+  # THE NEXT OPERATIONS ARE ASSUME FOR A BINARY SEARCH TREE
+  # let's assume that we are taking a node as an argument
+  # later, we can take an integer, and create a node as a result
+  def insert (node, root = self.node)  
+  	if root == nil
+  		self.update(node: node)
+	elsif node.value < root.value
+		insert(node, root.children.first)
+	elsif node.value > root.value
+		insert(node, root.children.first)
+	end
+  end
 end

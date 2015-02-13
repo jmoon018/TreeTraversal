@@ -37,6 +37,8 @@ put '/node/:id/edit' do
     value = params[:node_value]
     value = nil if value == "nil"
     @node.update(value: value, node_id: parent)
-    redirect to('/trees')
+	tree_name = Tree.find(session[:tree_id]).name
+	tree_name.gsub!(" ", "%20")
+    redirect to("/trees/" + tree_name)
   end
 end

@@ -1,15 +1,17 @@
 <h2 class="title"><%= @tree.name %></h2>
 
 <% @depths.each_with_index do |nodes, index| %>
-  <div class="nodes_depth_div">
-    <h3 class="node_depth_title">Depth <%= index %>: </h3>
-    <% nodes.each do |node| %>
-      <p class="node_div">
-        Node: <%= node.id %><br>
-        Value: <%= node.value%><br>
-        Parent: <%= node.node_id %></p>
-    <% end %>
-  </div>
+	  <div class="nodes_depth_div">
+		<h3 class="node_depth_title">Depth <%= index %>: </h3>
+		<% nodes.each do |node| %>
+			<a href="/node/<%=node.id%>/edit" class ="node_link" title="edit node">
+		  	<p class="node_div">
+			Node: <%= node.id %><br>
+			Value: <%= node.value%><br>
+			Parent: <%= node.node_id %></p>
+			</a>
+		<% end %>
+  	  </div>
 <% end %>
 
 <h3 class="tree_stats_title">Properties:</h3>

@@ -174,6 +174,10 @@ body {
   border-bottom: 1px solid black;
 }
 
+.node_link { 
+	color: black;
+}
+
 .node_depth_title {
   font-size: 1.8em;
   text-align: left;
@@ -233,6 +237,7 @@ body {
 
 
 
+
 /* DEMO STUFF */
 .squirrel_pic {
   display: table;
@@ -258,7 +263,7 @@ body {
 .node_change_div {
   margin: auto;
   margin-top: 25px;
-  width: 300px;
+  width: 310px;
   height: 120px;
   border: 1px solid  black;
   padding: 10px;
