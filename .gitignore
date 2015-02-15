@@ -1,4 +1,4 @@
 *.swp
-config/*
+config/
 database.rb
 environment.rb
