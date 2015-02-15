@@ -1,24 +1,26 @@
 get '/trees/:name' do
   user = session_current_user
-  @tree = user.trees.find_by(name: params[:name])
+  tree = user.trees.find_by(name: params[:name])
 
-  @depths = []
-  depth = 0
-  while true
-    list = @tree.nodes_by_level(depth)
-    if list.empty?
-      break
-    else
-      @depths << list
-      depth += 1
-    end
-  end
-  @minimax_value = @tree.minimax({maximize: true})
-  @dfs_values = (@tree.depth_first_search.map {|n| n.id}).join(", ")
-  @node_count = @tree.node_count
-  session[:tree_id] = @tree.id
+  #@depths = []
+  #depth = 0
+  #while true
+  #  list = @tree.nodes_by_level(depth)
+	#if list == []
+		#break
+	#end
+    #@depths << list
+    #depth += 1
+  #end
+  #@minimax_value = @tree.minimax({maximize: true})
+  #@dfs_values = (@tree.depth_first_search.map {|n| n.id}).join(", ")
+  #@node_count = @tree.node_count
+  session[:tree_id] = tree.id
+  puts tree.id
+  @tree_info = {id: tree.id.to_s, name: tree.name, description: tree.description,
+  	user_id: tree.user_id, node_id: tree.node_id || "null"}
 
-  erb :tree
+  erb :list_tree_nodes
 end
 
 get '/trees' do
@@ -38,9 +40,28 @@ get '/trees/:name/edit' do
   @description = tree.description
   @root_id =  tree.node.id
 
-
   erb :trees_edit
 end
+
+get '/trees/:name/test' do
+	erb :list_tree_nodes
+end
+
+get '/trees/:name/json' do 
+	content_type :json
+	@nodes = Tree.find_by(name: params[:name]).get_all_nodes
+	list = {}
+	@nodes.each do |node| 
+		node_obj = {}
+		node_obj["value"] = node.value
+		node_obj["node_id"] = node.node_id
+		node_obj["id"] = node.id
+		list[node.id] = node_obj
+	end
+
+	list.to_json
+end
+
 
 post '/trees/:name/edit' do 
 	# update the tree in the database 
@@ -55,8 +76,3 @@ post '/trees/:name/edit' do
 
 	redirect to('/trees')
 end
-
-
-
-
-

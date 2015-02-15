@@ -6,22 +6,27 @@ class Tree < ActiveRecord::Base
   belongs_to :user
   has_one :node
 
+
+  def create_node (arg = {})
+	Node.create(tree_id: self.id, value: arg[:value], node_id: nil)
+  end
   # node count
   def node_count
     depth_first_search.count
   end
 
+  def get_all_nodes
+	Node.where(tree_id: self.id)		
+  end
+
   # default is root
   def depth_first_search(node = self.node)
     # base case
-    #puts "Depth first search on: #{node}..#{node.value.to_s}"
     if node.nodes.empty?
-      #puts "Node w/ value #{node.value.to_s} is empty!"
       return [node]
     else
       theReturn = [node]
       node.nodes.each {|n| theReturn = theReturn + depth_first_search(n)}
-      # return ([node] + node.nodes.each {|n| depth_first_search(n)})
       return theReturn
     end
   end

@@ -101,7 +101,7 @@ describe "can generate new users/trees/nodes w/ proper relations" do
     # expect(t_tree.cre ... eq(Time.now.to_i)
     # it would return false, because t_tree has been initialized a second before
     it "has a 'created_at' property" do
-      expect(t_tree.created_at.utc.to_i).to eq(Time.now.to_i)
+      expect(t_tree.created_at.utc.to_i).to be_within(1).of(Time.now.to_i)
     end
 
     describe "tree algorithms (depth first search, minimax, etc)" do
@@ -215,7 +215,26 @@ describe "can generate new users/trees/nodes w/ proper relations" do
 
 		it "can insert something to the tree" do 
 			bst.node.insert(5)
-			expect(bst.node.print_in_order).to eq([5, 6, 7, 8, 9, 10, 14, 20, 23])
+		end
+
+		it "can get right child" do
+			expect(bst.node.get_right_child.value).to eq(20)
+		end
+
+		it "can get left child" do
+			expect(bst.node.get_left_child.value).to eq(7)
+		end
+
+		it "can get predecessor" do
+			expect(bst.node.get_predecessor.value).to eq(9)
+		end
+
+		it "can get parent" do 
+			expect(bst.node.get_parent(7)).to be(bst.node)
+		end
+
+		it "can delete something from the tree" do 
+			bst.node.delete(10)
 		end
 	end	
   end
@@ -237,7 +256,7 @@ describe "can generate new users/trees/nodes w/ proper relations" do
     it "can create a node that belongs to a tree" do
       t = Tree.create
       n = t.create_node()
-      expect(n.tree).to be(t)
+      expect(n.tree).to eq(t)
     end
 
     it "has a value property" do

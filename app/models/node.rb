@@ -6,7 +6,7 @@ class Node < ActiveRecord::Base
   # A child must point to its parent, hence 'node_id: self.id'
   # for whatever reason, active record did not do this automatically
   def create_node (args = {})
-    Node.create(node_id: self.id, value: args[:value], tree_id: nil)
+    Node.create(node_id: self.id, value: args[:value], tree_id: self.tree_id)
   end
 
 
@@ -45,5 +45,44 @@ class Node < ActiveRecord::Base
 			left.insert(value)
 		end
 	end
+  end
+
+  def get_right_child 
+  	self.nodes.where("value > ?", self.value).first
+  end
+
+  def get_left_child
+	self.nodes.where("value < ?", self.value).first
+  end
+
+  # TODO: optimize.. LOL
+  def get_predecessor (value=self.value)
+  	cur_node = get_left_child
+	return self if cur_node == nil
+
+	while cur_node.get_right_child != nil
+		cur_node = cur_node.get_right_child
+	end
+	return cur_node
+  end
+
+  def get_parent (value, last_visited = nil)
+	left = get_left_child
+	right = get_right_child
+
+	return last_visited if self.value == value
+	if value < self.value
+		return left.get_parent(value, self)
+	elsif value > self.value
+		return right.get_parent(value, self)
+	end	
+  end
+
+  def delete (value)
+	predecessor = get_predecessor(value)
+	right_child = get_right_child
+	left_child = get_left_child
+	pre_parent = get_parent(value)
+	return false
   end
 end

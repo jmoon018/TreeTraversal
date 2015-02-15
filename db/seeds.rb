@@ -2,7 +2,7 @@ require 'faker'
 
 
 # Change these if you want
-DEFAULT_USERS = 10
+DEFAULT_USERS = 3
 DEFAULT_TREES = (1..3).to_a
 DEFAULT_TREE_DEPTH = (2..4).to_a
 DEFAULT_BRANCHING_FACTOR = (2..4).to_a

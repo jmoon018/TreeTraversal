@@ -1,1 +1,4 @@
 *.swp
+config/*
+database.rb
+environment.rb

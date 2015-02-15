@@ -298,3 +298,9 @@ body {
   text-align: center;
 }
 
+
+
+#buttons_id {
+	width: 300px;
+	height: 300px;
+}

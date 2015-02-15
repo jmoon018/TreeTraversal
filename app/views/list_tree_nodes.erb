@@ -1,0 +1,34 @@
+<script>
+	var tree;
+	$(document).ready(function() {
+
+
+		// LOAD AND DISPLAY THE TREE
+		//=========================================
+		var url = "/trees/Jamal%27s%20Tree%201/json"
+
+		var obj = $.ajax({
+			url: url,
+			dataType: "json",
+			data: $(this),
+			type: "get"
+		});
+
+		// Why? Because JS does not interpret ruby hashes like I want it to
+		tree = new Tree({id: <%=@tree_info[:id]%>, 
+			name:"<%=@tree_info[:name]%>", 
+			description:"<%=@tree_info[:description]%>", 
+			user_id: <%=@tree_info[:user_id]%>, 
+			node_id: <%=@tree_info[:node_id]%>});
+
+		var that = this;
+		obj.done(function(data) {
+			tree.populate(data);
+			tree.drawAllDepths();
+		});
+
+		obj.fail(function(data) {
+			alert("Failed.");
+		});
+	});
+</script>
