@@ -1,11 +1,19 @@
 <script>
 	var tree;
 	$(document).ready(function() {
-
-
+		drawTree();
+		$("h1").click(function() {
+			console.log("Clicked on " + this);
+		});
+	});
+			
+	function drawTree() {
 		// LOAD AND DISPLAY THE TREE
 		//=========================================
-		var url = "/trees/Jamal%27s%20Tree%201/json"
+
+		// make sure the URL becomes valid -- replace spaces with the %20 character, etc
+		var treeName = "<%=@tree_info[:name]%>".replace(/ /g, "%20").replace(/'/, "%27");
+		var url = "/trees/" + treeName + "/json"
 
 		var obj = $.ajax({
 			url: url,
@@ -14,21 +22,23 @@
 			type: "get"
 		});
 
-		// Why? Because JS does not interpret ruby hashes like I want it to
+		// Why do I have to grab each detail from @tree_info?
+		// Because JS does not interpret ruby hashes like I want it to
 		tree = new Tree({id: <%=@tree_info[:id]%>, 
 			name:"<%=@tree_info[:name]%>", 
 			description:"<%=@tree_info[:description]%>", 
 			user_id: <%=@tree_info[:user_id]%>, 
 			node_id: <%=@tree_info[:node_id]%>});
 
-		var that = this;
+		// on success -- populate the tree (data storage) and draw it on screen (view)
 		obj.done(function(data) {
 			tree.populate(data);
+			console.log(tree);
 			tree.drawAllDepths();
 		});
-
+		// let client know it failed
 		obj.fail(function(data) {
 			alert("Failed.");
 		});
-	});
+	};
 </script>

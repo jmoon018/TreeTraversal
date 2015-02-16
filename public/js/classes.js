@@ -12,14 +12,11 @@ Tree.prototype.populate = function(args) {
 	for (var value in args) {
 		var new_node = new Node(args[value]);
 		this.nodes[value] = new_node;
-		console.log("Node id: " + args[value]["node_id"]);
 		if (args[value]["node_id"] != null) {
 			this.nodes[args[value]["node_id"]].children.push(new_node);
 		}
 	}
 };
-
-
 
 
 // a helper, I suppose
@@ -43,7 +40,7 @@ Tree.prototype.all_nodes_by_depth  = function() {
 	var depth = 0;
 	var depth_list = []; // 2D array: each element is the nodes at the element's index depth
 	while (true) {
-		var list = nodes_by_depth(depth, this.nodes[1]);
+		var list = nodes_by_depth(depth, this.nodes[this.node_id]);
 		if (list.length == 0) {
 			break;
 		}
@@ -55,11 +52,6 @@ Tree.prototype.all_nodes_by_depth  = function() {
 
 
 // VIEW - METHODS KINDA 
-Tree.prototype.make_html = function() {
-	for (var i = 0; i < this.nodes.length; i++) {
-		this.nodes[i].draw_node();	
-	}
-};
 
 Tree.prototype.drawDepth = function(depth, nodes) { 
 	var depthDiv = $("<div />", {
@@ -80,11 +72,26 @@ Tree.prototype.drawDepth = function(depth, nodes) {
 	$('#center').append(depthDiv);
 };
 
+Tree.prototype.addDepthHandlers = function() {
+	// attach event handlers after adding the depths
+	var tree = this;
+	$(".nodes_depth_div").on("click", "p", function(event) {
+		event.preventDefault();
+		var obj = $(this);
+		if (obj.is(".node_div")) {
+			var node = tree.nodes[obj.get(0).dataset["id"]];
+			node.showNodeChange();
+		}
+	});
+};
+
+
 Tree.prototype.drawAllDepths = function() {
 	nodes = this.all_nodes_by_depth(); // 2d array
 	for (var depth = 0; depth < nodes.length; depth++) { 
 		this.drawDepth(depth, nodes[depth]);
 	}
+	this.addDepthHandlers();
 };
 
 
@@ -99,41 +106,117 @@ function Node(args) {
 };
 
 Node.prototype.getNodeHtml = function(selector) {
-	console.log("TRYING TO MAKE HTML");
-	var button = $("<a />", {
+/*	var button = $("<a />", {
 		href: "/node/" + this.id + "/edit",
 		class: "node_link",
 		title: "Edit node"
-	});
+	});*/
 
 	var text = $("<p />", {
 		class: "node_div"
 	});
-	text.html("Node: " + this.id).append("<br>");
-	text.append("Value: " + this.value).append("<br>");
-	text.append("Parent: " + this.node_id);
 
-	button.append(text);
-	//$(selector).append(button);
-	return button;
-};
-
-
-function do_stuff () { 
-	console.log(button);
-	var t = document.createTextNode("BUTTON!!!");
-	console.log(t);
-	button.appendChild(t);
-	var elem = $("<a />", {
-		href: "/node/1/edit",
-		class: "node_link",
-		title: "Edit node",
+	var valueSpan = $("<span />", {
+		text: this.value
 	});
 
-	// Setup the text
-	var para = $("<p />");
+	valueSpan.attr("spanNodeId", this.id);
+	text.attr("data-id", this.id);
+	text.html("Node: " + this.id).append("<br>");
+	//text.append("Value: " + this.value).append("<br>");
+	text.append("Value: "); 
+	text.append(valueSpan).append("<br>");
+	text.append("Parent: " + this.node_id);
 
-	elem.append(para);
-	$("#buttons_id").append(elem);
-	console.log("created a div");
+	return text;
+};
+
+Node.prototype.updateNode = function() {
+	var node = this;
+	var url = "/node/" + this.id + "/update"; 
+
+	// get the node's value from the text box with .val()
+	var nodeValue = parseInt($("input[name='node_value']").val()); 
+	var nodeId = this.id;
+
+	var obj = $.ajax({
+		url: url,
+		dataType: "json",
+		data: {nodeUpdateValue: nodeValue, nodeUpdateId: nodeId},
+		type: "POST"
+	});
+
+	obj.done(function(data) {
+		console.log(data);
+
+		// update the node's actual value and print 
+		node.value = data.value;
+		$("span[spannodeid='" + nodeId + "']").text(node.value);
+		console.log("Updated data successfully");
+	});
+	obj.fail(function(data) {
+		console.log("Updated data -- failed");
+	});
+	$(".node_change_div").remove();
+};
+
+Node.prototype.showNodeChange = function() {
+	var node = this;
+
+	// html for node's ID
+	var nodeDiv = $("<div />", {
+		class: "node_change_div"
+	});
+
+	var nodeIdDiv = $("<div />", {
+		class: "node_change_field"
+	});
+	var nodeIdText = $("<p />", {
+		class: "node_change_text",
+		text: "Node ID: "
+	});
+	var nodeIdInput = $("<input />", {
+		type: "text",
+		value: node.id,
+		name: "node_parent_id"
+	});
+	
+	// html for node's value
+	var nodeValueDiv = $("<div />", {
+		class: "node_change_field"
+	});
+	var nodeValueText = $("<p />", {
+		class: "node_change_text",
+		text: "Value: "
+	});
+	var nodeValueInput = $("<input />", {
+		type: "text",
+		value: node.value,
+		name: "node_value"
+	});
+
+	// html for submit button
+	var nodeSubmitButton = $("<button />", {
+		class: "node_submit_button",
+		text: "Submit."
+	});
+
+	nodeSubmitButton.click(function(event) {
+		node.updateNode();
+	});
+
+	// add the node's id property / input
+	nodeDiv.append(nodeIdDiv);
+	nodeIdDiv.append(nodeIdText);
+	nodeIdDiv.append(nodeIdInput);
+	
+	// add the node's value property / input
+	nodeDiv.append(nodeValueDiv);
+	nodeValueDiv.append(nodeValueText);
+	nodeValueDiv.append(nodeValueInput);
+
+	// add the button
+	nodeDiv.append(nodeSubmitButton);
+	console.log(nodeDiv);
+	$("#center").append(nodeDiv);
 };

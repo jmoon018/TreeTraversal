@@ -2,23 +2,8 @@ get '/trees/:name' do
   user = session_current_user
   tree = user.trees.find_by(name: params[:name])
 
-  #@depths = []
-  #depth = 0
-  #while true
-  #  list = @tree.nodes_by_level(depth)
-	#if list == []
-		#break
-	#end
-    #@depths << list
-    #depth += 1
-  #end
-  #@minimax_value = @tree.minimax({maximize: true})
-  #@dfs_values = (@tree.depth_first_search.map {|n| n.id}).join(", ")
-  #@node_count = @tree.node_count
-  session[:tree_id] = tree.id
-  puts tree.id
   @tree_info = {id: tree.id.to_s, name: tree.name, description: tree.description,
-  	user_id: tree.user_id, node_id: tree.node_id || "null"}
+  	user_id: tree.user_id, node_id: tree.node.id || "null"}
 
   erb :list_tree_nodes
 end

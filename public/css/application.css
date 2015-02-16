@@ -75,7 +75,6 @@ body {
 .menu_bar a {
   text-decoration: none;
   color: black;
-  ;
 }
 
 .menu_bar_image {
@@ -263,22 +262,28 @@ body {
 .node_change_div {
   margin: auto;
   margin-top: 25px;
-  width: 310px;
-  height: 120px;
-  border: 1px solid  black;
+  border: 1px solid black;
   padding: 10px;
+  position: fixed;
+
+  top: 33%;
+  height: 33%;
+  
+  left: 33%;
+  width: 30%;
+
+  background-color: rgba(150, 150, 150, 1);
+  box-shadow: 0 0 25px black;
 }
 
 .node_submit_button {
   width: 120px;
   height: 25px;
   margin: auto;
-  float: right;
 }
 
 .node_change_field {
   margin-bottom: 10px;
-  float: right;
 }
 .node_change_text {
   font-size: 1em;

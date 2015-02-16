@@ -42,3 +42,25 @@ put '/node/:id/edit' do
     redirect to("/trees/" + tree_name)
   end
 end
+
+post '/node/:id/update' do 
+	content_type :json
+	puts "Attempting to update"
+	id = params[:nodeUpdateId]
+	value = params[:nodeUpdateValue]
+	puts "ID: #{id} ... New Value: #{value}"
+	
+	node = Node.find(id)
+
+	if node != nil
+		puts "Updating the node"
+		node.update(value: value)
+	else 
+		value = node.value
+		puts "Error updating. Node probably not found." 
+	end
+
+	new_node_info = {value: value}
+	new_node_info.to_json
+end
+
