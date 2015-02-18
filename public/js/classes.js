@@ -1,5 +1,5 @@
 // Tree + Methods
-function Tree(args) {
+var Tree = function(args) {
 	this.id = args["id"];
 	this.name = args["name"];
 	this.description = args["description"];
