@@ -55,10 +55,12 @@ post '/node/:id/update' do
 
 	if node != nil
 		puts "Updating the node"
+		puts "#{node} ... id: #{node.id}"
+		puts "New value: #{value} ... parent: #{parent_id}"
 		node.update(value: value, node_id: parent_id)
 	else 
 		value = node.value
-		vlaue = node.node_id
+		value = node.node_id
 		puts "Error updating. Node probably not found." 
 	end
 

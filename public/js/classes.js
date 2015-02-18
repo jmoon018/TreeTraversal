@@ -11,7 +11,7 @@ var Tree = function(args) {
 // Draw from the bottom to the top
 Tree.prototype.redraw = function() {
 	while (true) {
-		var depth = $(".nodes_depth_div").length();
+		var depth = $(".nodes_depth_div").length;
 		if (depth == 0) {
 			break;
 		}
@@ -77,13 +77,16 @@ Tree.prototype.populate = function(args) {
 
 // a helper, I suppose
 function nodes_by_depth(depth, node) {
+	console.log("NODE (" + node + ") BY DEPTH (" + depth + ")");
+
 	if (depth == 0) {
 		return [node];
 	}
 	else {
 		var list = [];
 		for (var i = 0; i < node.children.length; i++) {
-			list.push(nodes_by_depth(depth-1, node.children[i]));
+			var nodes = nodes_by_depth(depth-1, node.children[i]);
+			list.push(nodes);
 		}
 		var flatten = [];
 		flatten = flatten.concat.apply(flatten, list);
@@ -93,6 +96,7 @@ function nodes_by_depth(depth, node) {
 
 // Tree.all_nodes_by_depth
 Tree.prototype.all_nodes_by_depth  = function() {
+	//debugger;
 	var depth = 0;
 	var depth_list = []; // 2D array: each element is the nodes at the element's index depth
 	while (true) {
@@ -194,7 +198,7 @@ Node.prototype.getNodeHtml = function(selector) {
 Tree.prototype.updateNode = function(node) {
 	var theTree = this;
 	//var node = this;
-	var url = "/node/" + this.id + "/update"; 
+	var url = "/node/" + node.id + "/update"; 
 
 	// get the node's value from the text box with .val()
 	var nodeValue = parseInt($("input[name='node_value']").val()); 
@@ -215,7 +219,13 @@ Tree.prototype.updateNode = function(node) {
 
 		// update the node's actual value and print 
 		node.value = data.value;
+		if (node.value != null) {
+			node.value = parseInt(node.value);
+		}
 		node.node_id = data.parent_id;
+		if (node.node_id != null) {
+			node.node_id = parseInt(node.node_id);
+		}
 		$("span[spannodeid='" + nodeId + "']").text(node.value);
 		$("span[parentidspan='" + nodeId + "']").text(node.node_id);
 		console.log("Updated data successfully");

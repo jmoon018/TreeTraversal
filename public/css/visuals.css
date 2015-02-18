@@ -1,0 +1,25 @@
+
+#visuals_background {
+	width: 100%;
+	min-height: 600px;
+
+	background-color: rgb(240, 240, 240);
+}
+
+.node {
+	width: 100px;
+	line-height: 50px;
+	height: 50px;
+	position: absolute;
+	
+	border: 1px solid black;
+}
+
+.node:hover {
+	border: 1px solid orange;
+	color: orange;
+}
+
+#nodeWindow1 { top: 20em; left: 15em; }
+#nodeWindow2 { top: 30em; }
+#nodeWindow3 { top: 30em; left: 30em; }

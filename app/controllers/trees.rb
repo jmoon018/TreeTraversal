@@ -70,3 +70,8 @@ post '/trees/:name/edit' do
 
 	redirect to('/trees')
 end
+
+
+get "/trees/:name/jsplumb" do
+	erb :jsplumb_test
+end
