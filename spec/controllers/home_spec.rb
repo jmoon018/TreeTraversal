@@ -5,4 +5,5 @@ describe 'HOME' do
 		get '/'
 		expect(last_response).to be_ok
 	end
+
 end

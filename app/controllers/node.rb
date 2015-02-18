@@ -46,21 +46,23 @@ end
 post '/node/:id/update' do 
 	content_type :json
 	puts "Attempting to update"
-	id = params[:nodeUpdateId]
+	id = params[:id]
 	value = params[:nodeUpdateValue]
+	parent_id = params[:nodeUpdateParentId]
 	puts "ID: #{id} ... New Value: #{value}"
 	
 	node = Node.find(id)
 
 	if node != nil
 		puts "Updating the node"
-		node.update(value: value)
+		node.update(value: value, node_id: parent_id)
 	else 
 		value = node.value
+		vlaue = node.node_id
 		puts "Error updating. Node probably not found." 
 	end
 
-	new_node_info = {value: value}
+	new_node_info = {value: value, parent_id: parent_id}
 	new_node_info.to_json
 end
 

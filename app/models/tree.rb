@@ -12,7 +12,8 @@ class Tree < ActiveRecord::Base
   end
   # node count
   def node_count
-    depth_first_search.count
+    #depth_first_search.count
+	get_all_nodes.count	
   end
 
   def get_all_nodes
