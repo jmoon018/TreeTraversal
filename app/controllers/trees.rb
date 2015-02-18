@@ -1,9 +1,18 @@
 get '/trees/:name' do
   user = session_current_user
+  if user == nil
+	halt 401, "Log in please"
+  end
   tree = user.trees.find_by(name: params[:name])
 
+  if tree == nil
+  	halt 404, "bad tree name"
+  end
+
+
   @tree_info = {id: tree.id.to_s, name: tree.name, description: tree.description,
-  	user_id: tree.user_id, node_id: tree.node.id || "null"}
+  	user_id: tree.user_id, 
+	node_id: "null"}
 
   erb :list_tree_nodes
 end
