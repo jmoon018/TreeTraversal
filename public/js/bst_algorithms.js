@@ -104,6 +104,40 @@ BST_Node.prototype.search = function(value) {
 };
 
 
+// PSUEODOCODE:
+// If the current node's val is bigger than value, go left
+// If the current node's val is smaller than value, go right
+// Ends when you reach a external node
+// Note: when a duplicate node is discovered, it goes to left subtree
+BST.prototype.insert = function(value) {
+	var root = bst.nodes[0];
+	console.log("Attempting to insert the value (" + value + ") into BST (" + this.name + ")");
+	root.insert(value);
+};
+
+
+BST_Node.prototype.insert = function(value) {
+	if (value > this.value) {
+		if (this.right == null) {
+			this.right = new BST_Node({value: value});
+		}
+		else {
+			
+			this.right.insert(value);
+		}
+	}
+	else if (value <= this.value) {
+		if (this.left == null) {
+			this.left = new BST_Node({value: value});
+		}
+		else {
+			this.left.insert(value);
+		}
+	}
+};
+
+
+
 // all global variables so i can play with them in the console
 function seedSampleBST() {
 	bst = new BST({id: 1, name: "BST TREE", description: "WHO NEEDS A DESCRIPTION"});
