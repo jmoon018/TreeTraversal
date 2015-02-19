@@ -22,12 +22,11 @@
   <script src="/js/application.js" type="text/javascript"></script>
   <script src="/js/classes.js" type="text/javascript"></script>
   <script src="/js/apis/dom.jsPlumb-1.7.2-min.js"></script>
-  <script src="/js/kadgkag.js"></script>
 </head>
 <body>
 
   <div id="top_bar">
-    <% if session_logged_in? == false %>
+    <% if !logged_in? %>
       <form class="top_bar_form" action = "/login" method="post">
         <p class="top_bar_text"> Username: </p>
         <input class="top_bar_input" name="username" type="text"/>
@@ -41,9 +40,9 @@
         <p class="top_bar_error"><%= session[:error] %></p>
         <% end %>
       </form>
-    <% elsif session_logged_in? == true %>
+    <% elsif logged_in? %>
       <form class="top_bar_form" action="/logout" method="get">
-        <p class="top_bar_text">Hello, <%= session_current_user.name %> !</p>
+        <p class="top_bar_text">Hello, <%= current_user.name %> !</p>
         <input class="top_bar_logout" type="submit" value="Logout">
       </form>
     <% end %>

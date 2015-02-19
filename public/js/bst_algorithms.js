@@ -1,38 +1,3 @@
-//console.log("swag");
-//function BST(args) {
-//	var bs_tree = Object.create(Tree,	
-//};
-
-//BST.inherits(tree);
-
-
-//bst = new BST({id: 1, name: "Tree", description: "the description", user_id: 1, node_id: 1});
-/*
-function Animal(name) {
-	this.name = name;
-}
-
-Animal.prototype.speak = function() {
-	console.log("My name is " + this.name);
-};
-
-function Cat(name) {
-	Animal.call(this, name);
-}
-
-Cat.prototype = new Animal();
-Cat.prototype.meow = function() {
-	console.log("MEOW!");
-};
-
-var anim = new Animal('Da Animal');
-var cat = new Cat('Monty');
-
-anim.speak();
-cat.speak();
-cat.meow();
-*/
-
 // INHERITANCE YAY! [must study more]
 var BST = function(args) {
 	Tree.apply(this,arguments); // create and assign properties from Tree
@@ -54,9 +19,6 @@ var BST_Node = function(args) {
 BST_Node.prototype = Node.prototype;
 BST_Node.prototype.constructor = Node;
 
-
-
-//bst = new BST({id: 1, name: "BST TREE", description: "WHO NEEDS A DESCRIPTION"})
 
 // PSUEODOCODE:
 // if value > curNode.value
@@ -172,6 +134,8 @@ BST.prototype.remove = function(value) {
 
 // HURRAY MEMORY LEAKS COUGH
 // keep track of parent node.. makes my life much much easier
+
+// refactor this later -- not taking full advantage of recursion -- too long 
 BST_Node.prototype.remove = function (value, parentNode) {
 	if (value > this.value) {
 		if (this.right == null) {

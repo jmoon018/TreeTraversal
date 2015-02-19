@@ -14,10 +14,12 @@
 		var treeName = "<%=@tree_info[:name]%>".replace(/ /g, "%20").replace(/'/, "%27");
 		var url = "/trees/" + treeName + "/json"
 
+		// TODO
+		// check data after interview
 		var obj = $.ajax({
 			url: url,
 			dataType: "json",
-			data: $(this),
+			//data: $(this),
 			type: "get"
 		});
 

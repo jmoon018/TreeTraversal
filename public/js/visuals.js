@@ -14,19 +14,13 @@ function connectAllNodes(tree, instance) {
 	var nodeDivs = $("[class^=node_div]");
 	//var completed = {}
 	for (var i = 0; i < nodeDivs.length; i++) {
-		// already added connection - dont add another
-		/*if (completed[i] == true) {
-			continue;
-		}*/
 		// have to get the javascript object, not the HTML obj
 		var node = tree.getNodeById(nodeDivs[i].dataset["id"]);
 		console.log("Node: " + node.id);
 		var children = node.children;
 		for (var j = 0; j < children.length; j++) {
 			connectNode(instance, node, children[j]);
-		//	completed[children[j].id] = true; // dont 
 		}
-		//completed[node.id] = true; // dont check this node again
 	};
 }
 
@@ -51,7 +45,6 @@ function startJSPlumb(tree) {
 			var arrow = {foldback: .7, fillStyle: "black", width: 20 },
 			overlays = [
 			["Arrow", { location: 0.95 }, arrow ]
-			//["Arrow", { location: 0.3, direction:-1 }, arrow]
 			];
 		var nodeWindows = $(".node_div");
 		for (var i = 0; i < nodeWindows.length; i++) {
@@ -66,13 +59,9 @@ function startJSPlumb(tree) {
 				maxConnections: -1
 			});
 		}
-
-
-		//instance.connect({uuids: ["node_div-bottom", "nodeWindow2-top" ], overlays:overlays});
-		//instance.connect({uuids: ["node-bottom", "nodeWindow3-top" ], overlays:overlays});
-
 		connectAllNodes(tree, instance);
 		instance.draggable(nodeWindows);
+		tree.jsPlumbInstance = instance;
 		});
 	});
 }

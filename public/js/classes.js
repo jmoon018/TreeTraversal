@@ -6,6 +6,8 @@ var Tree = function(args) {
 	this.user_id = args["user_id"];
 	this.node_id = args["node_id"]
 	this.nodes = [];
+	this.totalDepth = 0;
+	this.jsPlumbInstance = null;
 };
 
 
@@ -23,14 +25,16 @@ Tree.prototype.positionNodes = function() {
 		// do some math to achieve good spacing between nodes
 		var totalWidth = parseInt($("body").css("width"));
 		var nodeWidth = 100; // 200px - may change later if node_div changes
-		var nodeSpace = 10; // 10 px
+		var nodeSpace = 20; // 20 px
 	
 		// find the total margin space
 		// each side will have spacing equal to 0.5 * margin
 		var margin = totalWidth - (nodeWidth * numOfNodes) - (nodeSpace * (numOfNodes - 1));
 
 		for (var i = 0; i < numOfNodes; i++ ){
-			var leftOffset = (margin/2) + (i * (nodeWidth + nodeSpace)) + "px";
+			var leftOffset = (margin/2) + (i * (nodeWidth 
+				+ ((depth) * nodeSpace))) + "px";
+
 			var node = nodes.shift();
 			if (node.children.length != 0 ) {
 				nodes = nodes.concat(node.children);
@@ -82,10 +86,13 @@ Tree.prototype.resetChildren = function() {
 
 Tree.prototype.resetView = function() {
 	// Get the proper children now
+
 	this.resetChildren();
 	this.getChildren();
-	$(".nodes_depth_div").remove();
-	this.drawAllDepths();
+	//$(".nodes_depth_div").remove();
+	//this.drawAllDepths();
+	this.jsPlumbInstance.detachEveryConnection();
+	connectAllNodes(this, this.jsPlumbInstance);
 };
 
 Tree.prototype.getChildren = function() {
@@ -109,7 +116,7 @@ Tree.prototype.populate = function(args) {
 };
 
 
-// a helper, I suppose
+// showthis
 function nodes_by_depth(depth, node) {
 	console.log("NODE (" + node + ") BY DEPTH (" + depth + ")");
 
@@ -147,6 +154,7 @@ Tree.prototype.all_nodes_by_depth  = function() {
 
 // VIEW - METHODS KINDA 
 Tree.prototype.drawDepth = function(depth, nodes) { 
+	/*
 	var depthDiv = $("<div />", {
 		class: "nodes_depth_div"
 	});
@@ -161,23 +169,21 @@ Tree.prototype.drawDepth = function(depth, nodes) {
 	for (var i = 0; i < nodes.length; i++) {
 		//debugger;
 		depthDiv.append(nodes[i].getNodeHtml());
-		/*
-		var topPos = (200+400*depth) + "px";
-		console.log("TOPPOS: " + topPos + "... for node " + nodes[i].id);
-		console.log("Node select: " + $("#node_div"+nodes[i].id).css("top"));
-		console.log("THE ID: " + nodes[i].id);
-		$("#node_div"+nodes[i].id).css("top", "512px");
-		$("#node_div"+nodes[i].id).css("left", (100 + (100*i)).toString() + "px");
-		*/
 	}
 
 	$('#center').append(depthDiv);
+	*/
+
+	for (var i = 0; i < nodes.length; i++) {
+		$("#center").append(nodes[i].getNodeHtml());
+	}
 };
 
 Tree.prototype.addDepthHandlers = function() {
 	// attach event handlers after adding the depths
 	var tree = this;
-	$(".nodes_depth_div").on("click", "div", function(event) {
+	//$(".nodes_depth_div").on("click", "div", function(event) {
+	$("#center").on("click", "div", function(event) {
 		event.preventDefault();
 		var obj = $(this);
 		if (obj.is(".node_div")) {
@@ -185,6 +191,7 @@ Tree.prototype.addDepthHandlers = function() {
 			tree.showNodeChange(node);
 		}
 	});
+
 };
 
 
@@ -208,12 +215,6 @@ function Node(args) {
 };
 
 Node.prototype.getNodeHtml = function(selector) {
-/*	var button = $("<a />", {
-		href: "/node/" + this.id + "/edit",
-		class: "node_link",
-		title: "Edit node"
-	});*/
-
 	var text = $("<div />", {
 		class: "node_div",
 		id: "node_div" + this.id

@@ -5,7 +5,7 @@ class Node < ActiveRecord::Base
 
   # A child must point to its parent, hence 'node_id: self.id'
   # for whatever reason, active record did not do this automatically
-  def create_node (args = {})
+  def create_node(args = {})
     Node.create(node_id: self.id, value: args[:value], tree_id: self.tree_id)
   end
 

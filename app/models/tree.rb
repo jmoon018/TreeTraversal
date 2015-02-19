@@ -1,8 +1,8 @@
-MIN_INT = -2_147_483_648
-MAX_INT = 2_147_483_647 # a friendly reminder that you wasted an hour before figuring out that sh-t wasn't supposed to be positive.. never forget
 
 
 class Tree < ActiveRecord::Base
+  MIN_INT = -2_147_483_648
+  MAX_INT = 2_147_483_647 # a friendly reminder that you wasted an hour before figuring out that sh-t wasn't supposed to be positive.. never forget
   belongs_to :user
   has_one :node
 

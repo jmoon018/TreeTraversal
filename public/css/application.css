@@ -192,6 +192,14 @@ body {
   margin: 5px;
 }
 
+.node_div:hover {
+	cursor: pointer;
+	cursor: hand;
+	background-color: rgb(220, 220, 220);
+	box-shadow: 0 0 25px black;
+	border: 3px solid white;
+}
+
 .tree_stats_title {
   font-size: 1.8em;
   text-align: left;

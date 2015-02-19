@@ -1,5 +1,5 @@
 get '/trees/:name' do
-  user = session_current_user
+  user = current_user
   if user == nil
 	halt 401, "Log in please"
   end
@@ -18,7 +18,7 @@ get '/trees/:name' do
 end
 
 get '/trees' do
-  user = session_current_user
+  user = current_user
   @trees = user.trees
   erb :trees
 end
