@@ -185,6 +185,7 @@ body {
 .node_div {
   float: left;
   display: table;
+  position: absolute;
   border: 1px solid black;
   min-width:100px;
   padding: 5px;

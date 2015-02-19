@@ -8,6 +8,40 @@ var Tree = function(args) {
 	this.nodes = [];
 };
 
+
+// Horizontally: center it
+// Vertically: each node has a distance of 200px for each new depth 
+Tree.prototype.positionNodes = function() {
+	var depth = 0;
+	var nodes = [this.nodes[0]];
+	var totalWidth = $("#center").css("width");
+
+	while(nodes.length != 0) {
+		var topOffset = (300 + depth * 150)+"px";
+		var numOfNodes = nodes.length;
+
+		// do some math to achieve good spacing between nodes
+		var totalWidth = parseInt($("body").css("width"));
+		var nodeWidth = 100; // 200px - may change later if node_div changes
+		var nodeSpace = 10; // 10 px
+	
+		// find the total margin space
+		// each side will have spacing equal to 0.5 * margin
+		var margin = totalWidth - (nodeWidth * numOfNodes) - (nodeSpace * (numOfNodes - 1));
+
+		for (var i = 0; i < numOfNodes; i++ ){
+			var leftOffset = (margin/2) + (i * (nodeWidth + nodeSpace)) + "px";
+			var node = nodes.shift();
+			if (node.children.length != 0 ) {
+				nodes = nodes.concat(node.children);
+			}
+			$(".node_div[data-id='" + node.id + "']").css("top", topOffset);
+			$(".node_div[data-id='" + node.id + "']").css("left", leftOffset);
+		}
+		depth++;
+	}
+};
+
 // Draw from the bottom to the top
 Tree.prototype.redraw = function() {
 	while (true) {
@@ -125,7 +159,16 @@ Tree.prototype.drawDepth = function(depth, nodes) {
 	depthDiv.append(headerElem);
 
 	for (var i = 0; i < nodes.length; i++) {
+		//debugger;
 		depthDiv.append(nodes[i].getNodeHtml());
+		/*
+		var topPos = (200+400*depth) + "px";
+		console.log("TOPPOS: " + topPos + "... for node " + nodes[i].id);
+		console.log("Node select: " + $("#node_div"+nodes[i].id).css("top"));
+		console.log("THE ID: " + nodes[i].id);
+		$("#node_div"+nodes[i].id).css("top", "512px");
+		$("#node_div"+nodes[i].id).css("left", (100 + (100*i)).toString() + "px");
+		*/
 	}
 
 	$('#center').append(depthDiv);

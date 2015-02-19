@@ -31,6 +31,7 @@ function connectAllNodes(tree, instance) {
 }
 
 function startJSPlumb(tree) {
+	console.log("WHAT");
 	jsPlumb.ready(function() {
 		console.log("READY");
 		

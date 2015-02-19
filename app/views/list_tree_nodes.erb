@@ -1,4 +1,5 @@
 <script src="/js/bst_algorithms.js"></script>
+<script src="/js/visuals.js"></script>
 <script>
 	var tree;
 	$(document).ready(function() {
@@ -33,6 +34,8 @@
 			tree.populate(data);
 			//console.log(tree);
 			tree.drawAllDepths();
+			tree.positionNodes();
+			startJSPlumb(tree);
 		});
 		// let client know it failed
 		obj.fail(function(data) {
@@ -40,4 +43,3 @@
 		});
 	};
 </script>
-<script src="/js/visuals.js"></script>
