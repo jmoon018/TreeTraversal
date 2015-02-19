@@ -3,9 +3,6 @@
 	var tree;
 	$(document).ready(function() {
 		drawTree();
-		$("h1").click(function() {
-			console.log("Clicked on " + this);
-		});
 	});
 			
 	function drawTree() {
@@ -34,7 +31,7 @@
 		// on success -- populate the tree (data storage) and draw it on screen (view)
 		obj.done(function(data) {
 			tree.populate(data);
-			console.log(tree);
+			//console.log(tree);
 			tree.drawAllDepths();
 		});
 		// let client know it failed
@@ -43,3 +40,4 @@
 		});
 	};
 </script>
+<script src="/js/visuals.js"></script>

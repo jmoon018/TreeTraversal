@@ -134,7 +134,7 @@ Tree.prototype.drawDepth = function(depth, nodes) {
 Tree.prototype.addDepthHandlers = function() {
 	// attach event handlers after adding the depths
 	var tree = this;
-	$(".nodes_depth_div").on("click", "p", function(event) {
+	$(".nodes_depth_div").on("click", "div", function(event) {
 		event.preventDefault();
 		var obj = $(this);
 		if (obj.is(".node_div")) {
@@ -171,8 +171,9 @@ Node.prototype.getNodeHtml = function(selector) {
 		title: "Edit node"
 	});*/
 
-	var text = $("<p />", {
-		class: "node_div"
+	var text = $("<div />", {
+		class: "node_div",
+		id: "node_div" + this.id
 	});
 
 	var parentIdSpan = $("<span />", {
